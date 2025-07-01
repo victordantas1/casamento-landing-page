@@ -48,9 +48,7 @@ const Header = ({ activeSection }) => {
         { label: 'O CASAL', id: 'casal' },
         { label: 'PADRINHOS', id: 'padrinhos' },
         { label: 'CERIMÔNIA', id: 'cerimonia' },
-        { label: 'LISTA DE PRESENTES', id: '#' }, // Links futuros
         { label: 'CONFIRME SUA PRESENÇA', id: '#' },
-        { label: 'RECADOS', id: '#' },
     ];
 
     return (
