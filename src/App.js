@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // --- SVG Components for Floral Decorations (sem alterações) ---
 const FlorTopo = () => (
@@ -42,40 +42,29 @@ const ImageFrame = ({ src, alt, shape = 'circle', name }) => {
 const Header = ({ activeSection }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    // Mapeamento dos links para as seções
     const navItems = [
         { label: 'HOME', id: 'home' },
         { label: 'O CASAL', id: 'casal' },
         { label: 'PADRINHOS', id: 'padrinhos' },
         { label: 'CERIMÔNIA', id: 'cerimonia' },
-        { label: 'CONFIRME SUA PRESENÇA', id: '#' },
+        { label: 'CONFIRME SUA PRESENÇA', id: 'confirmar-presenca' },
+        { label: 'LISTA DE PRESENTES', id: 'lista-de-presentes' },
     ];
 
     return (
         <header className="bg-[#F3F3F3] w-full sticky top-0 z-50 shadow-sm">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    {/* Nomes à esquerda */}
                     <div className="flex-shrink-0">
                         <a href="#home" className="text-xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Victor & Emmily</a>
                     </div>
-
-                    {/* Navegação centralizada (para telas médias e grandes) */}
                     <div className="hidden md:flex flex-1 items-center justify-center">
                         <div className="flex items-baseline space-x-4">
                             {navItems.map((item) => (
-                                <a
-                                    key={item.label}
-                                    href={`#${item.id}`}
-                                    className={`px-3 py-2 rounded-md text-sm font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}
-                                >
-                                    {item.label}
-                                </a>
+                                <a key={item.label} href={`#${item.id}`} className={`px-3 py-2 rounded-md text-sm font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}>{item.label}</a>
                             ))}
                         </div>
                     </div>
-
-                    {/* Botão de menu mobile (à direita) */}
                     <div className="flex items-center md:hidden">
                         <button onClick={() => setIsOpen(!isOpen)} className="bg-gray-200 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-700 focus:outline-none">
                             <span className="sr-only">Abrir menu</span>
@@ -85,30 +74,16 @@ const Header = ({ activeSection }) => {
                     </div>
                 </div>
             </div>
-
-            {/* Menu mobile expandido */}
             <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    {navItems.map((item) => (
-                        <a
-                            key={item.label}
-                            href={`#${item.id}`}
-                            onClick={() => setIsOpen(false)} // Fecha o menu ao clicar
-                            className={`block px-3 py-2 rounded-md text-base font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}
-                        >
-                            {item.label}
-                        </a>
-                    ))}
+                    {navItems.map((item) => (<a key={item.label} href={`#${item.id}`} onClick={() => setIsOpen(false)} className={`block px-3 py-2 rounded-md text-base font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}>{item.label}</a>))}
                 </div>
             </div>
         </header>
     );
 };
 
-
 // --- Seções com IDs para navegação ---
-
-// ATUALIZADO: Componente de Seção genérico agora aceita 'id'
 const Section = ({ id, title, children, hasFlower = true, className = '' }) => (
     <section id={id} className={`py-20 md:py-24 bg-[#F3F3F3] ${className}`}>
         <div className="container mx-auto px-4 text-center">
@@ -119,108 +94,111 @@ const Section = ({ id, title, children, hasFlower = true, className = '' }) => (
     </section>
 );
 
+// --- Componentes de Seção (Hero, Countdown, About, etc.) ---
+const HeroSection = () => ( <div id="home" className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-center" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png')" }} > <FlorTopo /> <FlorTopo2 /> <div className="relative z-10 flex flex-col items-center"> <FlorTitle1 className="transform -translate-y-8" /> <div className="flex items-center justify-center space-x-4 -mt-16"> <h1 className="text-5xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>VICTOR</h1> <div className="w-16 h-16 md:w-20 md:h-20 bg-[#A9B4C8] rounded-full flex items-center justify-center text-white text-3xl font-serif">&</div> <h1 className="text-5xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>EMMILY</h1> </div> <FlorDate className="mt-2" /> <p className="mt-4 text-2xl text-gray-600" style={{ fontFamily: "'Cormorant Garamond', serif" }}>03 DE OUTUBRO DE 2025</p> </div> </div> );
+const Countdown = () => { const calculateTimeLeft = () => { const difference = +new Date("2025-10-03T00:00:00") - +new Date(); let timeLeft = {}; if (difference > 0) { timeLeft = { dias: Math.floor(difference / (1000 * 60 * 60 * 24)), horas: Math.floor((difference / (1000 * 60 * 60)) % 24), minutos: Math.floor((difference / 1000 / 60) % 60), segundos: Math.floor((difference / 1000) % 60) }; } return timeLeft; }; const [timeLeft, setTimeLeft] = useState(calculateTimeLeft()); useEffect(() => { const timer = setTimeout(() => { setTimeLeft(calculateTimeLeft()); }, 1000); return () => clearTimeout(timer); }); return ( <section className="bg-[#4A5568] text-white py-16 md:py-20"> <div className="container mx-auto px-4 text-center"> <h2 className="text-3xl md:text-4xl tracking-widest mb-10" style={{ fontFamily: "'Cormorant Garamond', serif" }}>CONTAGEM REGRESSIVA</h2> <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto"> {Object.keys(timeLeft).length ? Object.keys(timeLeft).map(interval => ( <div key={interval} className="text-center"> <div className="bg-white bg-opacity-20 rounded-lg p-4 md:p-6"><span className="text-4xl md:text-6xl font-bold">{String(timeLeft[interval]).padStart(2, '0')}</span></div> <span className="text-sm md:text-base uppercase mt-2 block">{interval}</span> </div> )) : <span>O grande dia chegou!</span>} </div> </div> </section> );}
+const AboutSection = () => ( <Section id="casal" title="O CASAL"> <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-12"> <ImageFrame alt="Foto do Casal 1" shape="circle" /> <ImageFrame alt="Foto do Casal 2" shape="circle" /> </div> <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-lg">Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia!...</p> </Section> );
+const GodparentsSection = () => ( <Section id="padrinhos" title="PADRINHOS"> <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-lg mb-12">Aos nossos queridos padrinhos: É uma imensa emoção e indescritível tê-los ao nosso lado...</p> <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 max-w-4xl mx-auto"> <ImageFrame alt="Padrinho/Madrinha 1" shape="circle" name="Nome" /> <ImageFrame alt="Padrinho/Madrinha 2" shape="circle" name="Nome" /> <ImageFrame alt="Padrinho/Madrinha 3" shape="circle" name="Nome" /> <ImageFrame alt="Padrinho/Madrinha 4" shape="circle" name="Nome" /> </div> </Section> );
+const CeremonySection = () => ( <Section id="cerimonia" title="CERIMÔNIA"> <div className="max-w-3xl mx-auto mb-12"><ImageFrame alt="Local da Cerimônia" shape="rectangle" /></div> <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-lg">Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus!...<br/><br/><strong>Salão Jardim Paulista, São Paulo - SP, 01408-060</strong></p> </Section> );
 
-const HeroSection = () => (
-    <div
-        id="home"
-        className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-center"
-        style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png')" }}
-    >
-        <FlorTopo />
-        <FlorTopo2 />
+// --- NOVO: Seção de Confirmação de Presença ---
+const ConfirmPresenceSection = () => {
+    const [convidadoId, setConvidadoId] = useState('');
+    const [codigoConfirmacao, setCodigoConfirmacao] = useState('');
+    const [presenca, setPresenca] = useState(null); // 'vai' ou 'nao_vai'
 
-        <div className="relative z-10 flex flex-col items-center">
-            <FlorTitle1 className="transform -translate-y-8" />
-            <div className="flex items-center justify-center space-x-4 -mt-16">
-                <h1 className="text-5xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>VICTOR</h1>
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-[#A9B4C8] rounded-full flex items-center justify-center text-white text-3xl font-serif">&</div>
-                <h1 className="text-5xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>EMMILY</h1>
-            </div>
-            <FlorDate className="mt-2" />
-            <p className="mt-4 text-2xl text-gray-600" style={{ fontFamily: "'Cormorant Garamond', serif" }}>03 DE OUTUBRO DE 2025</p>
-        </div>
-    </div>
-);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-const Countdown = () => {
-    // Lógica do countdown permanece a mesma...
-    const calculateTimeLeft = () => {
-        const difference = +new Date("2025-10-03T00:00:00") - +new Date();
-        let timeLeft = {};
-        if (difference > 0) {
-            timeLeft = { dias: Math.floor(difference / (1000 * 60 * 60 * 24)), horas: Math.floor((difference / (1000 * 60 * 60)) % 24), minutos: Math.floor((difference / 1000 / 60) % 60), segundos: Math.floor((difference / 1000) % 60) };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!convidadoId || !codigoConfirmacao || !presenca) {
+            setError('Por favor, preencha todos os campos e selecione uma opção.');
+            return;
         }
-        return timeLeft;
+
+        setLoading(true);
+        setError('');
+        setSuccess('');
+
+        try {
+            const response = await fetch('http://localhost:8000/convidados/confirmar_presenca', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    convidado_id: parseInt(convidadoId, 10),
+                    presenca: presenca,
+                    codigo_confirmacao: codigoConfirmacao,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Ocorreu um erro. Tente novamente.');
+            }
+
+            setSuccess('Presença confirmada com sucesso! Obrigado!');
+            setConvidadoId('');
+            setCodigoConfirmacao('');
+            setPresenca(null);
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-    useEffect(() => { const timer = setTimeout(() => { setTimeLeft(calculateTimeLeft()); }, 1000); return () => clearTimeout(timer); });
 
     return (
-        <section className="bg-[#4A5568] text-white py-16 md:py-20">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="text-3xl md:text-4xl tracking-widest mb-10" style={{ fontFamily: "'Cormorant Garamond', serif" }}>CONTAGEM REGRESSIVA</h2>
-                <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
-                    {Object.keys(timeLeft).length ? Object.keys(timeLeft).map(interval => (
-                        <div key={interval} className="text-center">
-                            <div className="bg-white bg-opacity-20 rounded-lg p-4 md:p-6"><span className="text-4xl md:text-6xl font-bold">{String(timeLeft[interval]).padStart(2, '0')}</span></div>
-                            <span className="text-sm md:text-base uppercase mt-2 block">{interval}</span>
-                        </div>
-                    )) : <span>O grande dia chegou!</span>}
+        <Section id="confirmar-presenca" title="CONFIRME SUA PRESENÇA">
+            <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-lg mb-12">
+                Sua presença é muito importante para nós! Por favor, confirme usando os códigos que você recebeu.
+            </p>
+            <form onSubmit={handleSubmit} className="max-w-lg mx-auto text-left">
+                <div className="mb-6">
+                    <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Seu Código de Convidado</label>
+                    <input type="text" id="convidadoId" value={convidadoId} onChange={(e) => setConvidadoId(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ex: 12345" required />
                 </div>
-            </div>
-        </section>
+                <div className="mb-6">
+                    <label htmlFor="codigoConfirmacao" className="block mb-2 text-sm font-medium text-gray-700">Código de Confirmação</label>
+                    <input type="text" id="codigoConfirmacao" value={codigoConfirmacao} onChange={(e) => setCodigoConfirmacao(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Seu código pessoal" required />
+                </div>
+                <div className="mb-8">
+                    <label className="block mb-3 text-sm font-medium text-gray-700">Você irá ao evento?</label>
+                    <div className="flex items-center justify-center gap-4">
+                        <button type="button" onClick={() => setPresenca('vai')} className={`w-full py-3 px-5 text-base font-medium text-center rounded-lg transition-all ${presenca === 'vai' ? 'bg-green-600 text-white ring-2 ring-green-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}>
+                            Sim, estarei lá!
+                        </button>
+                        <button type="button" onClick={() => setPresenca('nao_vai')} className={`w-full py-3 px-5 text-base font-medium text-center rounded-lg transition-all ${presenca === 'nao_vai' ? 'bg-red-600 text-white ring-2 ring-red-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}>
+                            Não poderei comparecer
+                        </button>
+                    </div>
+                </div>
+
+                {error && <div className="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg text-center">{error}</div>}
+                {success && <div className="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg text-center">{success}</div>}
+
+                <button type="submit" disabled={loading} className="text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-3 text-center disabled:bg-gray-400">
+                    {loading ? 'Enviando...' : 'Confirmar Presença'}
+                </button>
+            </form>
+        </Section>
     );
-}
-
-const AboutSection = () => (
-    <Section id="casal" title="O CASAL">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-12">
-            <ImageFrame alt="Foto do Casal 1" shape="circle" />
-            <ImageFrame alt="Foto do Casal 2" shape="circle" />
-        </div>
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-lg">Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia!...</p>
-    </Section>
-);
-
-const GodparentsSection = () => (
-    <Section id="padrinhos" title="PADRINHOS">
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-lg mb-12">Aos nossos queridos padrinhos: É uma imensa emoção e indescritível tê-los ao nosso lado...</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 max-w-4xl mx-auto">
-            <ImageFrame alt="Padrinho/Madrinha 1" shape="circle" name="Nome" />
-            <ImageFrame alt="Padrinho/Madrinha 2" shape="circle" name="Nome" />
-            <ImageFrame alt="Padrinho/Madrinha 3" shape="circle" name="Nome" />
-            <ImageFrame alt="Padrinho/Madrinha 4" shape="circle" name="Nome" />
-        </div>
-    </Section>
-);
-
-const CeremonySection = () => (
-    <Section id="cerimonia" title="CERIMÔNIA">
-        <div className="max-w-3xl mx-auto mb-12"><ImageFrame alt="Local da Cerimônia" shape="rectangle" /></div>
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-lg">Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus!...<br/><br/><strong>Salão Jardim Paulista, São Paulo - SP, 01408-060</strong></p>
-    </Section>
-);
-
+};
 
 // --- Main App Component (ATUALIZADO) ---
 export default function App() {
     const [activeSection, setActiveSection] = useState('home');
 
-    // Lógica para detectar a seção ativa durante a rolagem
     useEffect(() => {
-        const sectionIds = ['home', 'casal', 'padrinhos', 'cerimonia'];
+        const sectionIds = ['home', 'casal', 'padrinhos', 'cerimonia', 'confirmar-presenca'];
         const sections = sectionIds.map(id => document.getElementById(id));
 
         const handleScroll = () => {
             const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-            const currentSection = sections.find(section =>
-                section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight
-            );
-
-            if (currentSection) {
-                setActiveSection(currentSection.id);
-            }
+            const currentSection = sections.find(section => section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight);
+            if (currentSection) { setActiveSection(currentSection.id); }
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -229,16 +207,8 @@ export default function App() {
 
     return (
         <div className="bg-[#F3F3F3] antialiased">
-            <style>
-                {`
-                    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lato:wght@300;400&display=swap');
-                    body { font-family: 'Lato', sans-serif; }
-                    html { scroll-behavior: smooth; }
-                `}
-            </style>
-
+            <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lato:wght@300;400&display=swap'); body { font-family: 'Lato', sans-serif; } html { scroll-behavior: smooth; }`}</style>
             <Header activeSection={activeSection} />
-
             <main>
                 <HeroSection />
                 <Countdown />
@@ -247,12 +217,12 @@ export default function App() {
                 <GodparentsSection />
                 <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
                 <CeremonySection />
+                <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
+                <ConfirmPresenceSection />
             </main>
-
             <footer className="bg-[#4A5568] text-white text-center p-8">
                 <p style={{ fontFamily: "'Cormorant Garamond', serif" }}>Victor & Emmily</p>
             </footer>
         </div>
     );
 }
-
