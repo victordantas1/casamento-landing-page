@@ -167,7 +167,6 @@ const CeremonySection = () => (
 
 const ConfirmPresenceSection = () => {
     const [convidadoId, setConvidadoId] = useState('');
-    const [codigoConfirmacao, setCodigoConfirmacao] = useState('');
     const [presenca, setPresenca] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -175,7 +174,7 @@ const ConfirmPresenceSection = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!convidadoId || !codigoConfirmacao || !presenca) {
+        if (!convidadoId || !presenca) {
             setError('Por favor, preencha todos os campos e selecione uma opção.');
             return;
         }
@@ -189,7 +188,7 @@ const ConfirmPresenceSection = () => {
                 body: JSON.stringify({
                     convidado_id: parseInt(convidadoId, 10),
                     presenca: presenca,
-                    codigo_confirmacao: codigoConfirmacao,
+                    codigo_confirmacao: "0", // Enviando um valor padrão, já que não é mais usado para validação
                 }),
             });
             if (!response.ok) {
@@ -198,7 +197,6 @@ const ConfirmPresenceSection = () => {
             }
             setSuccess('Presença confirmada com sucesso! Obrigado!');
             setConvidadoId('');
-            setCodigoConfirmacao('');
             setPresenca(null);
         } catch (err) {
             setError(err.message);
@@ -210,16 +208,12 @@ const ConfirmPresenceSection = () => {
     return (
         <Section id="confirmar-presenca" title="CONFIRME SUA PRESENÇA">
             <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">
-                Sua presença é muito importante para nós! Por favor, confirme usando os códigos que você recebeu.
+                Sua presença é muito importante para nós! Por favor, confirme usando a sua senha.
             </p>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto text-left">
                 <div className="mb-6">
-                    <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Seu Código de Convidado</label>
-                    <input type="text" id="convidadoId" value={convidadoId} onChange={(e) => setConvidadoId(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ex: 12345" required />
-                </div>
-                <div className="mb-6">
-                    <label htmlFor="codigoConfirmacao" className="block mb-2 text-sm font-medium text-gray-700">Código de Confirmação</label>
-                    <input type="text" id="codigoConfirmacao" value={codigoConfirmacao} onChange={(e) => setCodigoConfirmacao(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Seu código pessoal" required />
+                    <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Sua Senha</label>
+                    <input type="text" id="convidadoId" value={convidadoId} onChange={(e) => setConvidadoId(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Senha" required />
                 </div>
                 <div className="mb-8">
                     <label className="block mb-3 text-sm font-medium text-gray-700 text-center sm:text-left">Você irá ao evento?</label>
