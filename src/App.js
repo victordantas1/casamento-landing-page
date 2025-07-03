@@ -251,9 +251,24 @@ const GiftListSection = () => (
         <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">
             Sua presença é o nosso maior presente! Mas, se desejar nos presentear, ficaremos muito felizes. Criamos algumas opções com muito carinho.
         </p>
-        <div className="text-center">
-            <a href="#" className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center">
-                Ver Lista de Presentes
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a
+                // Coloque aqui o link para a sua lista de presentes da Bemol
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
+            >
+                Lista de Presentes - Bemol
+            </a>
+            <a
+                // Coloque aqui o link para a sua lista de presentes da Havan
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
+            >
+                Lista de Presentes - Havan
             </a>
         </div>
     </Section>
