@@ -214,12 +214,8 @@ const ConfirmPresenceSection = () => {
             </p>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto text-left">
                 <div className="mb-6">
-                    <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Seu Código de Convidado</label>
-                    <input type="text" id="convidadoId" value={convidadoId} onChange={(e) => setConvidadoId(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ex: 12345" required />
-                </div>
-                <div className="mb-6">
-                    <label htmlFor="codigoConfirmacao" className="block mb-2 text-sm font-medium text-gray-700">Código de Confirmação</label>
-                    <input type="text" id="codigoConfirmacao" value={codigoConfirmacao} onChange={(e) => setCodigoConfirmacao(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Seu código pessoal" required />
+                    <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Sua Senha</label>
+                    <input type="text" id="convidadoId" value={convidadoId} onChange={(e) => setConvidadoId(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Senha" required />
                 </div>
                 <div className="mb-8">
                     <label className="block mb-3 text-sm font-medium text-gray-700 text-center sm:text-left">Você irá ao evento?</label>
