@@ -167,7 +167,6 @@ const CeremonySection = () => (
 
 const ConfirmPresenceSection = () => {
     const [convidadoId, setConvidadoId] = useState('');
-    const [codigoConfirmacao, setCodigoConfirmacao] = useState('');
     const [presenca, setPresenca] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -175,7 +174,7 @@ const ConfirmPresenceSection = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!convidadoId || !codigoConfirmacao || !presenca) {
+        if (!convidadoId || !presenca) {
             setError('Por favor, preencha todos os campos e selecione uma opção.');
             return;
         }
@@ -189,7 +188,7 @@ const ConfirmPresenceSection = () => {
                 body: JSON.stringify({
                     convidado_id: parseInt(convidadoId, 10),
                     presenca: presenca,
-                    codigo_confirmacao: codigoConfirmacao,
+                    codigo_confirmacao: "0", // Enviando um valor padrão, já que não é mais usado para validação
                 }),
             });
             if (!response.ok) {
@@ -198,7 +197,6 @@ const ConfirmPresenceSection = () => {
             }
             setSuccess('Presença confirmada com sucesso! Obrigado!');
             setConvidadoId('');
-            setCodigoConfirmacao('');
             setPresenca(null);
         } catch (err) {
             setError(err.message);
@@ -210,7 +208,7 @@ const ConfirmPresenceSection = () => {
     return (
         <Section id="confirmar-presenca" title="CONFIRME SUA PRESENÇA">
             <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">
-                Sua presença é muito importante para nós! Por favor, confirme usando os códigos que você recebeu.
+                Sua presença é muito importante para nós! Por favor, confirme usando a sua senha.
             </p>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto text-left">
                 <div className="mb-6">
