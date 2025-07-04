@@ -38,7 +38,7 @@ const ImageFrame = ({ src, alt, shape = 'circle', name }) => {
     );
 };
 
-// --- Header Component (ATUALIZADO para responsividade) ---
+// --- Header Component (ATUALIZADO para responsividade em tablets) ---
 const Header = ({ activeSection }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -58,14 +58,15 @@ const Header = ({ activeSection }) => {
                     <div className="flex-shrink-0">
                         <a href="#home" className="text-lg md:text-xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Victor & Emmily</a>
                     </div>
-                    <div className="hidden md:flex flex-1 items-center justify-center">
-                        <div className="flex items-baseline space-x-1 lg:space-x-4">
+                    {/* Altera o breakpoint para 'lg' (1024px) */}
+                    <div className="hidden lg:flex flex-1 items-center justify-center">
+                        <div className="flex items-baseline space-x-4">
                             {navItems.map((item) => (
-                                <a key={item.label} href={`#${item.id}`} className={`px-2 lg:px-3 py-2 rounded-md text-xs lg:text-sm font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}>{item.label}</a>
+                                <a key={item.label} href={`#${item.id}`} className={`px-3 py-2 rounded-md text-sm font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}>{item.label}</a>
                             ))}
                         </div>
                     </div>
-                    <div className="flex items-center md:hidden">
+                    <div className="flex items-center lg:hidden">
                         <button onClick={() => setIsOpen(!isOpen)} className="bg-gray-200 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-700 focus:outline-none">
                             <span className="sr-only">Abrir menu</span>
                             <svg className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
@@ -74,7 +75,7 @@ const Header = ({ activeSection }) => {
                     </div>
                 </div>
             </div>
-            <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
+            <div className={`${isOpen ? 'block' : 'hidden'} lg:hidden`}>
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {navItems.map((item) => (<a key={item.label} href={`#${item.id}`} onClick={() => setIsOpen(false)} className={`block px-3 py-2 rounded-md text-base font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}>{item.label}</a>))}
                 </div>
@@ -165,6 +166,7 @@ const CeremonySection = () => (
     </Section>
 );
 
+// --- Componente de Confirmação de Presença (CORRIGIDO) ---
 const ConfirmPresenceSection = () => {
     const [convidadoId, setConvidadoId] = useState('');
     const [presenca, setPresenca] = useState(null);
@@ -174,8 +176,9 @@ const ConfirmPresenceSection = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Validação sem o código de confirmação
         if (!convidadoId || !presenca) {
-            setError('Por favor, preencha todos os campos e selecione uma opção.');
+            setError('Por favor, preencha sua senha e selecione uma opção.');
             return;
         }
         setLoading(true);
@@ -188,7 +191,7 @@ const ConfirmPresenceSection = () => {
                 body: JSON.stringify({
                     convidado_id: parseInt(convidadoId, 10),
                     presenca: presenca,
-                    codigo_confirmacao: "0", // Enviando um valor padrão, já que não é mais usado para validação
+                    codigo_confirmacao: "0", // Enviando um valor padrão
                 }),
             });
             if (!response.ok) {
@@ -240,6 +243,7 @@ const ConfirmPresenceSection = () => {
     );
 };
 
+// --- Seção de Lista de Presentes (ATUALIZADA) ---
 const GiftListSection = () => (
     <Section id="lista-de-presentes" title="LISTA DE PRESENTES">
         <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">
@@ -278,7 +282,7 @@ export default function App() {
 
         const handleScroll = () => {
             const scrollPosition = window.scrollY + window.innerHeight / 2;
-            const currentSection = sections.find(section => section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight);
+            const currentSection = sections.find(section => section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetHeight);
             if (currentSection) { setActiveSection(currentSection.id); }
         };
 
