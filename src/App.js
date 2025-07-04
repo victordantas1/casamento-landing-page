@@ -58,7 +58,6 @@ const Header = ({ activeSection }) => {
                     <div className="flex-shrink-0">
                         <a href="#home" className="text-lg md:text-xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Victor & Emmily</a>
                     </div>
-                    {/* Altera o breakpoint para 'lg' (1024px) */}
                     <div className="hidden lg:flex flex-1 items-center justify-center">
                         <div className="flex items-baseline space-x-4">
                             {navItems.map((item) => (
@@ -166,7 +165,7 @@ const CeremonySection = () => (
     </Section>
 );
 
-// --- Componente de Confirmação de Presença (CORRIGIDO) ---
+// --- Componente de Confirmação de Presença (ATUALIZADO com URL do .env) ---
 const ConfirmPresenceSection = () => {
     const [convidadoId, setConvidadoId] = useState('');
     const [presenca, setPresenca] = useState(null);
@@ -174,9 +173,11 @@ const ConfirmPresenceSection = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    // Lê a URL da API do ficheiro .env, com um fallback para localhost
+    const apiUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Validação sem o código de confirmação
         if (!convidadoId || !presenca) {
             setError('Por favor, preencha sua senha e selecione uma opção.');
             return;
@@ -185,11 +186,11 @@ const ConfirmPresenceSection = () => {
         setError('');
         setSuccess('');
         try {
-            const response = await fetch('http://localhost:8000/convidados/confirmar_presenca', {
+            const response = await fetch(`${apiUrl}/convidados/confirmar_presenca`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    convidado_id: parseInt(convidadoId, 10),
+                    convidado_id: convidadoId,
                     presenca: presenca,
                     codigo_confirmacao: "0", // Enviando um valor padrão
                 }),
