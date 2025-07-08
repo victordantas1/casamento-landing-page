@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// --- SVG Components for Floral Decorations (sem alterações) ---
 const FlorTopo = () => (
     <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="absolute top-2 left-2 w-20 h-20 md:w-32 md:h-32 opacity-50">
         <path d="M50 90 C40 70, 40 50, 50 30 M50 90 C60 70, 60 50, 50 30 M50 30 C45 20, 55 20, 50 30 M50 30 C40 25, 60 25, 50 30 M30 60 C40 50, 40 40, 50 30 M70 60 C60 50, 60 40, 50 30" stroke="#A9B4C8" strokeWidth="1" fill="none" />
@@ -22,7 +21,7 @@ const FlorDate = ({ className = '' }) => (
     </svg>
 );
 
-// --- Reusable Image Frame Component (sem alterações) ---
+
 const ImageFrame = ({ src, alt, shape = 'circle', name }) => {
     const placeholderUrl = shape === 'circle'
         ? `https://placehold.co/200x200/EFEFEF/CCCCCC?text=?`
@@ -38,7 +37,6 @@ const ImageFrame = ({ src, alt, shape = 'circle', name }) => {
     );
 };
 
-// --- Header Component (ATUALIZADO para responsividade em tablets) ---
 const Header = ({ activeSection }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -83,7 +81,6 @@ const Header = ({ activeSection }) => {
     );
 };
 
-// --- Seções com IDs para navegação (ATUALIZADO para responsividade) ---
 const Section = ({ id, title, children, hasFlower = true, className = '' }) => (
     <section id={id} className={`py-16 md:py-24 bg-[#F3F3F3] ${className}`}>
         <div className="container mx-auto px-4 text-center">
@@ -94,7 +91,6 @@ const Section = ({ id, title, children, hasFlower = true, className = '' }) => (
     </section>
 );
 
-// --- Componentes de Seção (ATUALIZADOS para responsividade) ---
 const HeroSection = () => (
     <div id="home" className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-center px-4" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png')" }} >
         <FlorTopo />
@@ -165,7 +161,6 @@ const CeremonySection = () => (
     </Section>
 );
 
-// --- Componente de Confirmação de Presença (ATUALIZADO com URL do .env) ---
 const ConfirmPresenceSection = () => {
     const [convidadoId, setConvidadoId] = useState('');
     const [presenca, setPresenca] = useState(null);
@@ -244,7 +239,6 @@ const ConfirmPresenceSection = () => {
     );
 };
 
-// --- Seção de Lista de Presentes (ATUALIZADA) ---
 const GiftListSection = () => (
     <Section id="lista-de-presentes" title="LISTA DE PRESENTES">
         <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">
@@ -262,7 +256,7 @@ const GiftListSection = () => (
             </a>
             <a
                 // Coloque aqui o link para a sua lista de presentes da Havan
-                href="#"
+                href="https://lista.havan.com.br/Convidado/ItensListaPresente/847390"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
@@ -273,7 +267,6 @@ const GiftListSection = () => (
     </Section>
 );
 
-// --- Main App Component (ATUALIZADO) ---
 export default function App() {
     const [activeSection, setActiveSection] = useState('home');
 
