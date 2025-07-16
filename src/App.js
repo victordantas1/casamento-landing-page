@@ -1,26 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-const FlorTopo = () => (
-    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="absolute top-2 left-2 w-20 h-20 md:w-32 md:h-32 opacity-50">
-        <path d="M50 90 C40 70, 40 50, 50 30 M50 90 C60 70, 60 50, 50 30 M50 30 C45 20, 55 20, 50 30 M50 30 C40 25, 60 25, 50 30 M30 60 C40 50, 40 40, 50 30 M70 60 C60 50, 60 40, 50 30" stroke="#A9B4C8" strokeWidth="1" fill="none" />
-    </svg>
-);
-const FlorTopo2 = () => (
-    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="absolute top-2 right-2 w-20 h-20 md:w-32 md:h-32 opacity-50 transform -scale-x-100">
-        <path d="M50 90 C40 70, 40 50, 50 30 M50 90 C60 70, 60 50, 50 30 M50 30 C45 20, 55 20, 50 30 M50 30 C40 25, 60 25, 50 30 M30 60 C40 50, 40 40, 50 30 M70 60 C60 50, 60 40, 50 30" stroke="#A9B4C8" strokeWidth="1" fill="none" />
-    </svg>
-);
-const FlorTitle1 = ({ className = '' }) => (
-    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className={`w-20 h-20 md:w-24 md:h-24 text-gray-400 ${className}`}>
-        <path d="M50 95 C40 75, 40 55, 50 35 M50 95 C60 75, 60 55, 50 35 M50 35 C45 25, 55 25, 50 35 M50 35 C40 30, 60 30, 50 35 M50 5 C40 15, 60 15, 50 5" stroke="currentColor" strokeWidth="1" fill="none" />
-    </svg>
-);
-const FlorDate = ({ className = '' }) => (
-    <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" className={`w-16 h-8 text-gray-500 ${className}`}>
-        <path d="M5 15 Q15 5, 30 15 T55 15 M5 17 Q15 27, 30 17 T55 17" stroke="currentColor" strokeWidth="1.5" fill="none" />
-    </svg>
-);
-
 const ImageFrame = ({ src, alt, shape = 'circle', name }) => {
     const placeholderUrl = shape === 'circle'
         ? `https://placehold.co/200x200/EFEFEF/CCCCCC?text=?`
@@ -79,10 +58,9 @@ const Header = ({ activeSection }) => {
     );
 };
 
-const Section = ({ id, title, children, hasFlower = true, className = '' }) => (
+const Section = ({ id, title, children, className = '' }) => (
     <section id={id} className={`py-16 md:py-24 bg-[#F3F3F3] ${className}`}>
         <div className="container mx-auto px-4 text-center">
-            {hasFlower && <FlorTitle1 className="mx-auto -mb-6 md:-mb-8" />}
             <h2 className="text-3xl md:text-5xl text-gray-700 mb-10 md:mb-16" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{title}</h2>
             {children}
         </div>
@@ -91,17 +69,13 @@ const Section = ({ id, title, children, hasFlower = true, className = '' }) => (
 
 const HeroSection = () => (
     <div id="home" className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-center px-4" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png')" }} >
-        <FlorTopo />
-        <FlorTopo2 />
         <div className="relative z-10 flex flex-col items-center">
-            <FlorTitle1 className="transform -translate-y-4 md:-translate-y-8" />
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 -mt-12 md:-mt-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4">
                 <h1 className="text-5xl sm:text-6xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>VICTOR</h1>
                 <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 my-2 sm:my-0 bg-[#A9B4C8] rounded-full flex items-center justify-center text-white text-2xl md:text-3xl font-serif">&</div>
                 <h1 className="text-5xl sm:text-6xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>EMMILY</h1>
             </div>
-            <FlorDate className="mt-4" />
-            <p className="mt-2 text-xl md:text-2xl text-gray-600" style={{ fontFamily: "'Cormorant Garamond', serif" }}>03 DE OUTUBRO DE 2025</p>
+            <p className="mt-6 text-xl md:text-2xl text-gray-600" style={{ fontFamily: "'Cormorant Garamond', serif" }}>03 DE OUTUBRO DE 2025</p>
         </div>
     </div>
 );
@@ -157,7 +131,6 @@ const ConfirmPresenceSection = () => {
 
     const handleSenhaChange = (e) => {
         const value = e.target.value;
-        
         if (value.length <= 4) {
             setConvidadoId(value);
         }
@@ -177,9 +150,9 @@ const ConfirmPresenceSection = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    convidado_id: convidadoId, 
+                    convidado_id: convidadoId,
                     presenca: presenca,
-                    codigo_confirmacao: "0", 
+                    codigo_confirmacao: "0",
                 }),
             });
             if (!response.ok) {
@@ -208,10 +181,10 @@ const ConfirmPresenceSection = () => {
                         type="text"
                         id="convidadoId"
                         value={convidadoId}
-                        onChange={handleSenhaChange} 
-                        maxLength="4" 
+                        onChange={handleSenhaChange}
+                        maxLength="4"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Senha (máx. 4 caracteres)" 
+                        placeholder="Senha (máx. 4 caracteres)"
                         required
                     />
                 </div>
@@ -226,8 +199,10 @@ const ConfirmPresenceSection = () => {
                         </button>
                     </div>
                 </div>
+
                 {error && <div className="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg text-center">{error}</div>}
                 {success && <div className="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg text-center">{success}</div>}
+
                 <div className="text-center">
                     <button type="submit" disabled={loading} className="text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-3 text-center disabled:bg-gray-400">
                         {loading ? 'Enviando...' : 'Confirmar Presença'}
@@ -245,7 +220,6 @@ const GiftListSection = () => (
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
-                
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
