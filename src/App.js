@@ -132,9 +132,8 @@ const Countdown = () => {
 
 const AboutSection = () => (
     <Section id="casal" title="O CASAL">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-12">
-            <ImageFrame alt="Foto do Casal 1" shape="circle" />
-            <ImageFrame alt="Foto do Casal 2" shape="circle" />
+        <div className="flex justify-center items-center mb-12">
+            <ImageFrame src="casal.jpg" alt="Foto do Casal" shape="circle" />
         </div>
         <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia!...</p>
     </Section>
@@ -246,6 +245,7 @@ const GiftListSection = () => (
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
+                
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
