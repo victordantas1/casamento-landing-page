@@ -115,8 +115,8 @@ const AboutSection = () => (
 
 const CeremonySection = () => (
     <Section id="cerimonia" title="CERIMÔNIA">
-        <div className="max-w-3xl mx-auto mb-12"><ImageFrame alt="Local da Cerimônia" shape="rectangle" /></div>
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus!...<br/><br/><strong>Salão Jardim Paulista, São Paulo - SP, 01408-060</strong></p>
+        <div className="max-w-3xl mx-auto mb-12"><ImageFrame src="cerimonia.jpg" alt="Local da Cerimônia" shape="rectangle" /></div>
+        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus!...<br/><br/><strong><a href={'https://maps.app.goo.gl/Fi7jBMMfL7bUdHk26?g_st=iw'} target={"_blank"} rel={"noopener noreferrer"}>Rosa Buffet, Rua Betula, 310, Cidade de Deus</a></strong></p>
     </Section>
 );
 
