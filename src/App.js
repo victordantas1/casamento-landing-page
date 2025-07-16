@@ -21,7 +21,6 @@ const FlorDate = ({ className = '' }) => (
     </svg>
 );
 
-
 const ImageFrame = ({ src, alt, shape = 'circle', name }) => {
     const placeholderUrl = shape === 'circle'
         ? `https://placehold.co/200x200/EFEFEF/CCCCCC?text=?`
@@ -43,7 +42,6 @@ const Header = ({ activeSection }) => {
     const navItems = [
         { label: 'HOME', id: 'home' },
         { label: 'O CASAL', id: 'casal' },
-        { label: 'PADRINHOS', id: 'padrinhos' },
         { label: 'CERIMÔNIA', id: 'cerimonia' },
         { label: 'CONFIRME SUA PRESENÇA', id: 'confirmar-presenca' },
         { label: 'LISTA DE PRESENTES', id: 'lista-de-presentes' },
@@ -57,7 +55,7 @@ const Header = ({ activeSection }) => {
                         <a href="#home" className="text-lg md:text-xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Victor & Emmily</a>
                     </div>
                     <div className="hidden lg:flex flex-1 items-center justify-center">
-                        <div className="flex items-baseline space-x-4">
+                        <div className="flex items-baseline space-x-1 lg:space-x-4">
                             {navItems.map((item) => (
                                 <a key={item.label} href={`#${item.id}`} className={`px-3 py-2 rounded-md text-sm font-medium ${activeSection === item.id ? 'bg-[#4A5568] text-white' : 'text-gray-600 hover:bg-gray-200'}`}>{item.label}</a>
                             ))}
@@ -142,18 +140,6 @@ const AboutSection = () => (
     </Section>
 );
 
-const GodparentsSection = () => (
-    <Section id="padrinhos" title="PADRINHOS">
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">Aos nossos queridos padrinhos: É uma imensa emoção e indescritível tê-los ao nosso lado...</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 max-w-4xl mx-auto">
-            <ImageFrame alt="Padrinho/Madrinha 1" shape="circle" name="Nome" />
-            <ImageFrame alt="Padrinho/Madrinha 2" shape="circle" name="Nome" />
-            <ImageFrame alt="Padrinho/Madrinha 3" shape="circle" name="Nome" />
-            <ImageFrame alt="Padrinho/Madrinha 4" shape="circle" name="Nome" />
-        </div>
-    </Section>
-);
-
 const CeremonySection = () => (
     <Section id="cerimonia" title="CERIMÔNIA">
         <div className="max-w-3xl mx-auto mb-12"><ImageFrame alt="Local da Cerimônia" shape="rectangle" /></div>
@@ -168,8 +154,15 @@ const ConfirmPresenceSection = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    // Lê a URL da API do ficheiro .env, com um fallback para localhost
     const apiUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
+
+    const handleSenhaChange = (e) => {
+        const value = e.target.value;
+        
+        if (value.length <= 4) {
+            setConvidadoId(value);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -185,9 +178,9 @@ const ConfirmPresenceSection = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    convidado_id: convidadoId,
+                    convidado_id: convidadoId, 
                     presenca: presenca,
-                    codigo_confirmacao: "0", // Enviando um valor padrão
+                    codigo_confirmacao: "0", 
                 }),
             });
             if (!response.ok) {
@@ -212,7 +205,16 @@ const ConfirmPresenceSection = () => {
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto text-left">
                 <div className="mb-6">
                     <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Sua Senha</label>
-                    <input type="text" id="convidadoId" value={convidadoId} onChange={(e) => setConvidadoId(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Senha" required />
+                    <input
+                        type="text"
+                        id="convidadoId"
+                        value={convidadoId}
+                        onChange={handleSenhaChange} 
+                        maxLength="4" 
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Senha (máx. 4 caracteres)" 
+                        required
+                    />
                 </div>
                 <div className="mb-8">
                     <label className="block mb-3 text-sm font-medium text-gray-700 text-center sm:text-left">Você irá ao evento?</label>
@@ -225,10 +227,8 @@ const ConfirmPresenceSection = () => {
                         </button>
                     </div>
                 </div>
-
                 {error && <div className="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg text-center">{error}</div>}
                 {success && <div className="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg text-center">{success}</div>}
-
                 <div className="text-center">
                     <button type="submit" disabled={loading} className="text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-3 text-center disabled:bg-gray-400">
                         {loading ? 'Enviando...' : 'Confirmar Presença'}
@@ -246,7 +246,6 @@ const GiftListSection = () => (
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
-                // Coloque aqui o link para a sua lista de presentes da Bemol
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -255,7 +254,6 @@ const GiftListSection = () => (
                 Lista de Presentes - Bemol
             </a>
             <a
-                // Coloque aqui o link para a sua lista de presentes da Havan
                 href="https://lista.havan.com.br/Convidado/ItensListaPresente/847390"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -269,9 +267,8 @@ const GiftListSection = () => (
 
 export default function App() {
     const [activeSection, setActiveSection] = useState('home');
-
     useEffect(() => {
-        const sectionIds = ['home', 'casal', 'padrinhos', 'cerimonia', 'confirmar-presenca', 'lista-de-presentes'];
+        const sectionIds = ['home', 'casal', 'cerimonia', 'confirmar-presenca', 'lista-de-presentes'];
         const sections = sectionIds.map(id => document.getElementById(id));
 
         const handleScroll = () => {
@@ -292,8 +289,6 @@ export default function App() {
                 <HeroSection />
                 <Countdown />
                 <AboutSection />
-                <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
-                <GodparentsSection />
                 <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
                 <CeremonySection />
                 <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
