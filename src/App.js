@@ -242,6 +242,8 @@ const GiftListSection = () => (
 export default function App() {
     const [activeSection, setActiveSection] = useState('home');
     useEffect(() => {
+        document.title = 'Victor e Emmily';
+
         const sectionIds = ['home', 'casal', 'cerimonia', 'confirmar-presenca', 'lista-de-presentes'];
         const sections = sectionIds.map(id => document.getElementById(id));
 
