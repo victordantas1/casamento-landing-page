@@ -220,14 +220,6 @@ const GiftListSection = () => (
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
-            >
-                Lista de Presentes - Bemol
-            </a>
-            <a
                 href="https://lista.havan.com.br/Convidado/ItensListaPresente/847390"
                 target="_blank"
                 rel="noopener noreferrer"
