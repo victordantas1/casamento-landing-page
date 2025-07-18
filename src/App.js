@@ -70,7 +70,7 @@ const Section = ({ id, title, children, className = '' }) => (
 const HeroSection = () => (
     <div id="home" className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-center px-4" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png')" }} >
         <div className="relative z-10 flex flex-col items-center">
-            <img src="logo_casal.png" alt="Logo do Casal" className="w-32 h-32 md:w-40 md:h-40 object-contain mb-8" />
+            <img src="logo-casal.png" alt="Logo do Casal" className="w-32 h-32 md:w-40 md:h-40 object-contain mb-8" />
             <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4">
                 <h1 className="text-5xl sm:text-6xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>VICTOR</h1>
                 <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 my-2 sm:my-0 bg-[#A9B4C8] rounded-full flex items-center justify-center text-white text-2xl md:text-3xl font-serif">&</div>
@@ -121,12 +121,40 @@ const CeremonySection = () => (
     </Section>
 );
 
+const Modal = ({ isOpen, onClose, onConfirm, loading, children }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm w-full mx-4">
+                <div className="mb-4">{children}</div>
+                <div className="flex justify-center gap-4">
+                    <button
+                        onClick={onClose}
+                        className="px-6 py-2 rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        onClick={onConfirm}
+                        disabled={loading}
+                        className="px-6 py-2 rounded-lg text-white bg-[#4A5568] hover:bg-opacity-90 disabled:bg-gray-400"
+                    >
+                        {loading ? 'Enviando...' : 'Confirmar'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const ConfirmPresenceSection = () => {
     const [convidadoId, setConvidadoId] = useState('');
     const [presenca, setPresenca] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const apiUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
@@ -137,10 +165,20 @@ const ConfirmPresenceSection = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handlePresenceSelect = (presence) => {
+        if (!convidadoId) {
+            setError('Por favor, insira sua senha antes de selecionar uma opção.');
+            return;
+        }
+        setError('');
+        setPresenca(presence);
+        setIsModalOpen(true);
+    };
+
+    const handleSubmit = async () => {
         if (!convidadoId || !presenca) {
-            setError('Por favor, preencha sua senha e selecione uma opção.');
+            setError('Ocorreu um erro. Por favor, tente novamente.');
+            setIsModalOpen(false);
             return;
         }
         setLoading(true);
@@ -167,6 +205,7 @@ const ConfirmPresenceSection = () => {
             setError(err.message);
         } finally {
             setLoading(false);
+            setIsModalOpen(false);
         }
     };
 
@@ -175,7 +214,7 @@ const ConfirmPresenceSection = () => {
             <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">
                 Sua presença é muito importante para nós! Por favor, confirme usando a sua senha.
             </p>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto text-left">
+            <div className="max-w-lg mx-auto text-left">
                 <div className="mb-6">
                     <label htmlFor="convidadoId" className="block mb-2 text-sm font-medium text-gray-700">Sua Senha</label>
                     <input
@@ -192,10 +231,10 @@ const ConfirmPresenceSection = () => {
                 <div className="mb-8">
                     <label className="block mb-3 text-sm font-medium text-gray-700 text-center sm:text-left">Você irá ao evento?</label>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button type="button" onClick={() => setPresenca('vai')} className={`w-full py-3 px-5 text-sm md:text-base font-medium text-center rounded-lg transition-all ${presenca === 'vai' ? 'bg-green-600 text-white ring-2 ring-green-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}>
+                        <button type="button" onClick={() => handlePresenceSelect('vai')} className={`w-full py-3 px-5 text-sm md:text-base font-medium text-center rounded-lg transition-all bg-green-600 text-white ring-2 ring-green-700 hover:bg-green-700`}>
                             Sim, estarei lá!
                         </button>
-                        <button type="button" onClick={() => setPresenca('nao_vai')} className={`w-full py-3 px-5 text-sm md:text-base font-medium text-center rounded-lg transition-all ${presenca === 'nao_vai' ? 'bg-red-600 text-white ring-2 ring-red-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}>
+                        <button type="button" onClick={() => handlePresenceSelect('nao_vai')} className={`w-full py-3 px-5 text-sm md:text-base font-medium text-center rounded-lg transition-all bg-red-600 text-white ring-2 ring-red-700 hover:bg-red-700`}>
                             Não poderei comparecer
                         </button>
                     </div>
@@ -203,16 +242,24 @@ const ConfirmPresenceSection = () => {
 
                 {error && <div className="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg text-center">{error}</div>}
                 {success && <div className="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg text-center">{success}</div>}
+            </div>
 
-                <div className="text-center">
-                    <button type="submit" disabled={loading} className="text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-3 text-center disabled:bg-gray-400">
-                        {loading ? 'Enviando...' : 'Confirmar Presença'}
-                    </button>
-                </div>
-            </form>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleSubmit}
+                loading={loading}
+            >
+                <p className="text-lg text-gray-700">
+                    {presenca === 'vai'
+                        ? 'Você confirma a sua presença no nosso casamento?'
+                        : 'Você confirma que não poderá comparecer?'}
+                </p>
+            </Modal>
         </Section>
     );
 };
+
 
 const GiftListSection = () => (
     <Section id="lista-de-presentes" title="LISTA DE PRESENTES">
