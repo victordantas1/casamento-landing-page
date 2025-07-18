@@ -224,7 +224,7 @@ const ConfirmPresenceSection = () => {
                         onChange={handleSenhaChange}
                         maxLength="4"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Senha (máx. 4 caracteres)"
+                        placeholder="Senha"
                         required
                     />
                 </div>
@@ -276,7 +276,7 @@ const GiftListSection = () => (
                 Lista de Presentes - Havan
             </a>
             <a
-                href="#"
+                href="https://lista.camicado.com.br/emmilyevictor"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
