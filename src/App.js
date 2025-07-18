@@ -70,7 +70,7 @@ const Section = ({ id, title, children, className = '' }) => (
 const HeroSection = () => (
     <div id="home" className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-center px-4" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png')" }} >
         <div className="relative z-10 flex flex-col items-center">
-            <img src="logo-casal.png" alt="Logo do Casal" className="w-32 h-32 md:w-40 md:h-40 object-contain mb-8" />
+            <img src="logo_casal.png" alt="Logo do Casal" className="w-32 h-32 md:w-40 md:h-40 object-contain mb-8" />
             <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4">
                 <h1 className="text-5xl sm:text-6xl md:text-7xl text-gray-700" style={{ fontFamily: "'Cormorant Garamond', serif" }}>VICTOR</h1>
                 <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 my-2 sm:my-0 bg-[#A9B4C8] rounded-full flex items-center justify-center text-white text-2xl md:text-3xl font-serif">&</div>
@@ -227,6 +227,14 @@ const GiftListSection = () => (
                 className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
             >
                 Lista de Presentes - Havan
+            </a>
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
+            >
+                Lista de Presentes - Camicado
             </a>
         </div>
     </Section>
