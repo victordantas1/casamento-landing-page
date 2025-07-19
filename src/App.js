@@ -22,6 +22,7 @@ const Header = ({ activeSection }) => {
         { label: 'HOME', id: 'home' },
         { label: 'O CASAL', id: 'casal' },
         { label: 'CERIMÔNIA', id: 'cerimonia' },
+        { label: 'DRESS CODE', id: 'dress-code' },
         { label: 'CONFIRME SUA PRESENÇA', id: 'confirmar-presenca' },
         { label: 'LISTA DE PRESENTES', id: 'lista-de-presentes' },
     ];
@@ -118,6 +119,15 @@ const CeremonySection = () => (
     <Section id="cerimonia" title="CERIMÔNIA">
         <div className="max-w-3xl mx-auto mb-12"><ImageFrame src="cerimonia.jpg" alt="Local da Cerimônia" shape="rectangle" /></div>
         <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus!...<br/><br/><strong><a href={'https://maps.app.goo.gl/Fi7jBMMfL7bUdHk26?g_st=iw'} target={"_blank"} rel={"noopener noreferrer"}>Rosa Buffet, Rua Betula, 310, Cidade de Deus</a></strong></p>
+    </Section>
+);
+
+const DressCodeSection = () => (
+    <Section id="dress-code" title="DRESS CODE">
+        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">Para que todos se sintam à vontade e entrem no clima da nossa celebração, sugerimos o traje Esporte Fino.</p>
+        <div className="max-w-3xl mx-auto mb-12">
+            <ImageFrame src="dresscode.jpg" alt="Sugestão de Dress Code" shape="rectangle" />
+        </div>
     </Section>
 );
 
@@ -224,7 +234,7 @@ const ConfirmPresenceSection = () => {
                         onChange={handleSenhaChange}
                         maxLength="4"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Senha"
+                        placeholder="Senha (máx. 4 caracteres)"
                         required
                     />
                 </div>
@@ -276,7 +286,7 @@ const GiftListSection = () => (
                 Lista de Presentes - Havan
             </a>
             <a
-                href="https://lista.camicado.com.br/emmilyevictor"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
@@ -292,7 +302,7 @@ export default function App() {
     useEffect(() => {
         document.title = 'Victor e Emmily';
 
-        const sectionIds = ['home', 'casal', 'cerimonia', 'confirmar-presenca', 'lista-de-presentes'];
+        const sectionIds = ['home', 'casal', 'cerimonia', 'dress-code', 'confirmar-presenca', 'lista-de-presentes'];
         const sections = sectionIds.map(id => document.getElementById(id));
 
         const handleScroll = () => {
@@ -315,6 +325,8 @@ export default function App() {
                 <AboutSection />
                 <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
                 <CeremonySection />
+                <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
+                <DressCodeSection />
                 <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
                 <ConfirmPresenceSection />
                 <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto"></div>
