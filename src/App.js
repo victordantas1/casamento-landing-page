@@ -83,7 +83,7 @@ const HeroSection = () => (
 );
 
 const Countdown = () => {
-    const calculateTimeLeft = () => { const difference = +new Date("2025-10-03T00:00:00") - +new Date(); let timeLeft = {}; if (difference > 0) { timeLeft = { dias: Math.floor(difference / (1000 * 60 * 60 * 24)), horas: Math.floor((difference / (1000 * 60 * 60)) % 24), minutos: Math.floor((difference / 1000 / 60) % 60), segundos: Math.floor((difference / 1000) % 60) }; } return timeLeft; };
+    const calculateTimeLeft = () => { const difference = +new Date("2025-10-03T20:00:00") - +new Date(); let timeLeft = {}; if (difference > 0) { timeLeft = { dias: Math.floor(difference / (1000 * 60 * 60 * 24)), horas: Math.floor((difference / (1000 * 60 * 60)) % 24), minutos: Math.floor((difference / 1000 / 60) % 60), segundos: Math.floor((difference / 1000) % 60) }; } return timeLeft; };
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
     useEffect(() => { const timer = setTimeout(() => { setTimeLeft(calculateTimeLeft()); }, 1000); return () => clearTimeout(timer); });
 
@@ -115,18 +115,45 @@ const AboutSection = () => (
     </Section>
 );
 
-const CeremonySection = () => (
-    <Section id="cerimonia" title="CERIMÔNIA">
-        <div className="max-w-3xl mx-auto mb-12"><ImageFrame src="cerimonia.jpg" alt="Local da Cerimônia" shape="rectangle" /></div>
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">
-            Será uma honra compartilhar a alegria deste dia tão especial com todos vocês, no momento em que uniremos nossas vidas. Contamos com a sua presença para testemunhar o início do nosso novo capítulo.
-            <br/><br/>
-            <strong>03 de Outubro de 2025, às 20h</strong>
-            <br/><br/>
-            <strong><a href={'https://maps.app.goo.gl/Fi7jBMMfL7bUdHk26?g_st=iw'} target={"_blank"} rel={"noopener noreferrer"}>Rosa Buffet, Rua Betula, 310, Cidade de Deus</a></strong>
-        </p>
-    </Section>
+const AddToCalendarButton = ({ googleCalendarUrl }) => (
+    <a
+        href={googleCalendarUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center mt-6 px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#4A5568] hover:bg-opacity-90"
+    >
+        <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm10 5H4v8h12V7z" clipRule="evenodd" />
+        </svg>
+        Adicionar ao Calendário
+    </a>
 );
+
+const CeremonySection = () => {
+    const eventDetails = {
+        title: 'Casamento Victor & Emmily',
+        details: 'Celebre conosco o casamento de Victor & Emmily.',
+        location: 'Rosa Buffet, Rua Betula, 310, Cidade de Deus',
+        startTime: '20251003T200000',
+        endTime: '20251004T030000',
+    };
+
+    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${eventDetails.startTime}/${eventDetails.endTime}&details=${encodeURIComponent(eventDetails.details)}&location=${encodeURIComponent(eventDetails.location)}`;
+
+    return (
+        <Section id="cerimonia" title="CERIMÔNIA">
+            <div className="max-w-3xl mx-auto mb-12"><ImageFrame src="cerimonia.jpg" alt="Local da Cerimônia" shape="rectangle" /></div>
+            <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">
+                Será uma honra compartilhar a alegria deste dia tão especial com todos vocês, no momento em que uniremos nossas vidas. Contamos com a sua presença para testemunhar o início do nosso novo capítulo.
+                <br/><br/>
+                <strong>03 de Outubro de 2025, às 20h</strong>
+                <br/><br/>
+                <strong><a href={'https://maps.app.goo.gl/Fi7jBMMfL7bUdHk26?g_st=iw'} target={"_blank"} rel={"noopener noreferrer"}>Rosa Buffet, Rua Betula, 310, Cidade de Deus</a></strong>
+            </p>
+            <AddToCalendarButton googleCalendarUrl={googleCalendarUrl} />
+        </Section>
+    );
+};
 
 const DressCodeSection = () => (
     <Section id="dress-code" title="DRESS CODE">
@@ -135,6 +162,7 @@ const DressCodeSection = () => (
             <ImageFrame src="dresscode.jpg" alt="Sugestão de Dress Code" shape="rectangle" />
         </div>
         <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto my-12"></div>
+        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">Queridos convidados, pedimos que evitem usar as cores:</p>
         <div className="max-w-3xl mx-auto mb-12">
             <img src="colors-banned.jpg" alt="Cores Proibidas" className="rounded-lg shadow-lg mx-auto" />
         </div>
