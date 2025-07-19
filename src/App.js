@@ -162,7 +162,6 @@ const DressCodeSection = () => (
             <ImageFrame src="dresscode.jpg" alt="Sugestão de Dress Code" shape="rectangle" />
         </div>
         <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto my-12"></div>
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg mb-12">Queridos convidados, pedimos que evitem usar as cores:</p>
         <div className="max-w-3xl mx-auto mb-12">
             <img src="colors-banned.jpg" alt="Cores Proibidas" className="rounded-lg shadow-lg mx-auto" />
         </div>
