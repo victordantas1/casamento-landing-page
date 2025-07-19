@@ -118,7 +118,13 @@ const AboutSection = () => (
 const CeremonySection = () => (
     <Section id="cerimonia" title="CERIMÔNIA">
         <div className="max-w-3xl mx-auto mb-12"><ImageFrame src="cerimonia.jpg" alt="Local da Cerimônia" shape="rectangle" /></div>
-        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus!...<br/><br/><strong><a href={'https://maps.app.goo.gl/Fi7jBMMfL7bUdHk26?g_st=iw'} target={"_blank"} rel={"noopener noreferrer"}>Rosa Buffet, Rua Betula, 310, Cidade de Deus</a></strong></p>
+        <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed text-base md:text-lg">
+            Será uma honra compartilhar a alegria deste dia tão especial com todos vocês, no momento em que uniremos nossas vidas. Contamos com a sua presença para testemunhar o início do nosso novo capítulo.
+            <br/><br/>
+            <strong>03 de Outubro de 2025, às 20h</strong>
+            <br/><br/>
+            <strong><a href={'https://maps.app.goo.gl/Fi7jBMMfL7bUdHk26?g_st=iw'} target={"_blank"} rel={"noopener noreferrer"}>Rosa Buffet, Rua Betula, 310, Cidade de Deus</a></strong>
+        </p>
     </Section>
 );
 
@@ -290,7 +296,7 @@ const GiftListSection = () => (
                 Lista de Presentes - Havan
             </a>
             <a
-                href="#"
+                href="https://lista.camicado.com.br/emmilyevictor"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block text-white bg-[#4A5568] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 text-center"
