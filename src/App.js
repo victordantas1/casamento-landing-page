@@ -128,6 +128,10 @@ const DressCodeSection = () => (
         <div className="max-w-3xl mx-auto mb-12">
             <ImageFrame src="dresscode.jpg" alt="Sugestão de Dress Code" shape="rectangle" />
         </div>
+        <div className="border-b-2 border-dashed border-gray-300 max-w-sm mx-auto my-12"></div>
+        <div className="max-w-3xl mx-auto mb-12">
+            <img src="colors-banned.jpg" alt="Cores Proibidas" className="rounded-lg shadow-lg mx-auto" />
+        </div>
     </Section>
 );
 
