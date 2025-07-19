@@ -132,7 +132,7 @@ const AddToCalendarButton = ({ googleCalendarUrl }) => (
 const CeremonySection = () => {
     const eventDetails = {
         title: 'Casamento Victor & Emmily',
-        details: 'Celebre conosco o casamento de Victor & Emmily.',
+        details: 'Celebre conosco o nosso casamento.',
         location: 'Rosa Buffet, Rua Betula, 310, Cidade de Deus',
         startTime: '20251003T200000',
         endTime: '20251004T030000',
